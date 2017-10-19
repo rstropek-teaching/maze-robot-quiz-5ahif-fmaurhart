@@ -1,10 +1,14 @@
 ﻿using Maze.Library;
+using System;
+using System.Collections.Generic;
 
 namespace Maze.Solver
 {
+   
     /// <summary>
-    /// Moves a robot from its current position towards the exit of the maze
+    /// 
     /// </summary>
+    
     public class RobotController
     {
         private IRobot robot;
@@ -31,7 +35,14 @@ namespace Maze.Solver
         /// </remarks>
         public void MoveRobotToExit()
         {
-            // Here you have to add your code
+
+
+            backtracker(true);
+
+
+
+            
+            /*
 
             // Trivial sample algorithm that can just move right
             var reachedEnd = false;
@@ -41,6 +52,52 @@ namespace Maze.Solver
             {
                 robot.Move(Direction.Right);
             }
+
+            */
+        }
+
+
+
+        private void backtracker(bool firstMove)
+        {
+
+            var reachedEnd = false;
+            robot.ReachedExit += (_, __) => reachedEnd = true;
+
+            var lastMove = Direction.Right;
+          
+
+           
+            if(!reachedEnd)
+            {
+                if (robot.TryMove(Direction.Right) && (lastMove != Direction.Left ||firstMove))
+                {
+
+                    lastMove = Direction.Right;
+                    backtracker(false);
+                    
+                }
+                else if (robot.TryMove(Direction.Up) && (lastMove != Direction.Down || firstMove))
+                {
+                    lastMove = Direction.Up;
+                    backtracker(false);
+                    
+                }
+                else if (robot.TryMove(Direction.Left) && (lastMove != Direction.Right || firstMove))
+                {
+                    lastMove = Direction.Left;
+                    backtracker(false);
+                    
+                }
+                else if (robot.TryMove(Direction.Down) && (lastMove != Direction.Up || firstMove))
+                {
+                    lastMove = Direction.Down;
+                    backtracker(false);
+                    
+                }
+
+            }
+            
         }
     }
 }
