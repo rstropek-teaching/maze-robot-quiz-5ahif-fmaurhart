@@ -35,13 +35,15 @@ namespace Maze.Solver
         /// </remarks>
         public void MoveRobotToExit()
         {
+            // Tip: It is generally considered bad coding style to use multiple empty
+            // lines to structure code. Try to avoid that.
 
 
             backtracker(true);
 
 
 
-            
+            // Tip: Remove "dead" code before checking it in.
             /*
 
             // Trivial sample algorithm that can just move right
@@ -58,6 +60,7 @@ namespace Maze.Solver
 
 
 
+        // Tip: In C#, members should start with capital letters.
         private void backtracker(bool firstMove)
         {
 
